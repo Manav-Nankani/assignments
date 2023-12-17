@@ -10,4 +10,17 @@ After the program runs, the output should be
 
 ```
 hello world my name is raman
+
+
+const fs = require('fs')
+
+fs.readFile('abc.txt', 'utf-8', (err, data)=> {
+  let data1 = data.replace(/\s+/g, ' ')
+  
+  
+  fs.writeFile('abc.txt', data1, 'utf-8', (err, data)=> {
+    console.log(data1)
+  
+  })
+})
 ```

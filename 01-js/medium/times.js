@@ -9,5 +9,21 @@ There is no automated test for this one, this is more for you to understand time
 */
 
 function calculateTime(n) {
-    return 0.01;
+    let a = 100;
+
+    for(let i = 0; i<100000000000; i++) {
+        a = a+i
+    }
+
+    return a;
 }
+
+const beforeCode = new Date();
+const beforeCodeTimeInMs = beforeCode.getTime();
+
+calculateTime()
+
+const afterCode = new Date();
+const AfterCodeTimeInMs = afterCode.getTime();
+
+console.log(AfterCodeTimeInMs - beforeCodeTimeInMs);
