@@ -45,5 +45,59 @@
   const app = express();
   
   app.use(bodyParser.json());
+
+  let todos = []
+
+  app.get("/todos", (req, res)=>{
+    res.json(todos);
+  })
+
+  app.get("/todos/:id", (req, res)=>{
+    const id = req.params.id
+    const todoItem = todos.find(todo => todo.id === id);
+    if(todoItem) {
+      res.json(todoItem);
+    }
+    else {
+      res.status(404).send();
+    }
+  })
+
+  app.post("/todos/", (req, res)=>{
+    const newItem = {
+      id: Math.floor(Math.random() * 374748282),
+      title: req.body.title,
+      discription: req.body.discription
+    }
+    todos.push(newItem);
+    res.status(201).json(newItem);
+  })
+
+  app.put("/todos/:id", (req, res)=>{
+    const id = req.params.id
+    const todoItem = todos.findIndex(todo => todo.id === id);
+    if(todoItem <= -1){
+      res.status(404).send();
+    }
+    else {
+      todos[todoItem].title = req.body.title;
+      todos[todoItem].description = req.body.description;
+      res.json(todos[todoItem])
+
+    }
+  })
+
+  app.delete("/todos/:id", (req, res)=>{
+    const id = req.params.id
+    const todoItem = todos.findIndex(todo => todo.id === id);
+    if (todoItem <= -1) {
+      res.status(404).send();
+    } else {
+      todos.splice(todoItem, 1);
+      res.status(200).send();
+    }
+  })
+
+
   
   module.exports = app;
